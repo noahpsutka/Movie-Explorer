@@ -1,0 +1,39 @@
+body {
+    background-color: #121212;
+    color: #cccccc;
+}
+
+.movie-container {
+    display: flex;
+    padding: 0px;
+    background-color: #121212;
+    color: #cccccc;
+    text-align: center;
+
+}
+
+.movie-container>div {
+    width: 50%;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 10px;
+
+}
+
+.movie-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.movie-poster {
+    max-width: 35%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.movie-description {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}

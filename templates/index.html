@@ -1,13 +1,25 @@
 <html>
 
 <head>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/stylesheet.css') }}">
 </head>
 
 <body>
     <h1 style="text-align: center;">Movie Explorer</h1>
-    <h2 style="text-align: center;">{{ name }}</h2>
-    <h3 style="text-align: center;">Movie_Description</h3>
+    <div class="movie-container">
+        <div>
+            <p class="movie-title">{{ title }}</p>
+            <h3>{{ tag }}</h3>
+            <h3>{{ genre }}</h3>
+            <p class="movie-description">{{ overview }}</p>
+            <h3>{{ wiki }}</h3>
+        </div>
+        <div>
+            <img class="movie-poster" src="{{image}}">
+            <h4> {{ score }}/10</h4>
+
+        </div>
+    </div>
 
 
 </body>

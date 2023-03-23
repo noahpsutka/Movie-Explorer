@@ -80,14 +80,20 @@ What are at least 2 technical issues you encountered with your project? How did 
 
 ```
 Issue 1: 
-"Error failed to fetch an image or build from source: app does not have a Dockerfile or buildpacks configured. See https://fly.io/docs/reference/configuration/#the-build-section"
+"Error failed to fetch an image or build from source: app does not have a Dockerfile or buildpacks
+configured. See https://fly.io/docs/reference/configuration/#the-build-section"
 
-Solution - I had to run the command "fly auth login" before running "flyctl launch" in order to properly generate Procfile and fly.toml
+Solution - I had to run the command "fly auth login" before running "flyctl launch" in order to properly
+generate Procfile and fly.toml
+I was able to find this solution by reaching out to my peers who encountered similar problems.
 
 Issue 2:
 "Failed due to unhealthy allocations - no stable job version to auto revert to"
 
 Solution - I had to update my requirements.txt to include all of the libraries that were used in my project
+I was able to find this solution by reading the console log, the following line on 
+my console told me which library I forgot to add to my requirements.txt
+- [info]ModuleNotFoundError: No module named 'dotenv'
 ```
 
 What are at least 2 known problems (still existing), if any, with your project? (If none, what are two things you would improve about your project if given more time?)

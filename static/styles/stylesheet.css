@@ -5,19 +5,23 @@ body {
 
 .movie-container {
     display: flex;
-    padding: 0px;
+    padding: 10px;
+
+
     background-color: #121212;
     color: #cccccc;
     text-align: center;
 
 }
 
-.movie-container>div {
-    width: 50%;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 10px;
+#info {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 65%;
+}
 
+#image {
+    width: 35%;
 }
 
 .movie-title {

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -7,16 +8,16 @@
 <body>
     <h1 style="text-align: center;">Movie Explorer</h1>
     <div class="movie-container">
-        <div>
+        <div id="info">
             <p class="movie-title">{{ title }}</p>
             <h3>{{ tag }}</h3>
             <h3>{{ genre }}</h3>
             <p class="movie-description">{{ overview }}</p>
             <h3><a href="{{ wiki }}">Wiki Link</a></h3>
         </div>
-        <div>
+        <div id="image">
             <img class="movie-poster" src="{{image}}">
-            <h4> {{ score }}/10</h4>
+            <h4>Movie Rating: {{ score }}/10</h4>
 
         </div>
     </div>

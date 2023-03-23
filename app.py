@@ -91,6 +91,3 @@ def get_wiki(movie_title):
     )
     wiki_info = wiki_response.json()["query"]["pages"][0]["pageid"]
     return wiki_info
-
-
-app.run(debug=True)

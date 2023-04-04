@@ -1,4 +1,5 @@
 import flask
+from flask import request
 import requests
 import random
 import os
@@ -13,6 +14,12 @@ app.secret_key = os.getenv("APP_SECRET_KEY")
 @app.route("/")
 def index():
     random_movie = movie_id_list[random.randint(0, 4)]
+    return flask.redirect(flask.url_for("display_movie", id=random_movie))
+
+
+@app.route("/movie")
+def display_movie():
+    random_movie = request.args["id"]
     movie_title = get_movie_info(random_movie, "title")
     movie_tagline = get_movie_info(random_movie, "tagline")
     movie_overview = get_movie_info(random_movie, "overview")
@@ -38,6 +45,7 @@ MOV_API_BASE_URL = "https://api.themoviedb.org/3/"
 MOV_API_MOVIE_PATH = "movie/"
 MOV_API_IMAGE_PATH = "/images"
 movie_id_list = ["808", "585", "238", "205321", "634649"]
+# [Shrek: 808, Monsters Inc: 585, Godfather: 238, Sharknado: 205321, Spiderman No Way Home: 634649 ]
 
 
 def get_movie_info(random_movie, request):

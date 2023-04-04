@@ -41,3 +41,54 @@ body {
     line-height: 1.4;
     margin-bottom: 10px;
 }
+
+/* navigation style */
+
+.nav-item {
+    width: 140px;
+    float: left;
+    margin: 4px;
+    margin-left: 80px;
+    padding: 2px;
+    background-color: #cccccc;
+    border: 1px solid #d4d4d4;
+    text-align: center;
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    background-color: #817f7f;
+}
+
+.nav-bar {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* background-color: #565656; */
+    color: #ffffff;
+    text-align: center;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.nav-bar h1 {
+    margin: 10px;
+    /* float: left; */
+}
+
+#nav-list {
+    margin: 20px;
+    margin-top: 0;
+    padding: 5px;
+    /* position: relative; */
+    overflow: auto;
+}
+
+.nav-item {
+    color: #ffffff;
+    /* text-decoration: underline; */
+}
+
+/* .nav-item:hover {
+    text-decoration: none;
+} */

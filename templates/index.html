@@ -6,7 +6,13 @@
 </head>
 
 <body>
-    <h1 style="text-align: center;">Movie Explorer</h1>
+    <div class="nav-bar">
+        <h1 style="text-align: left;">Movie Explorer</h1>
+        <ul id="nav-list">
+            <li class="nav-item"><a method="GET" href="{{url_for('index')}}">New Movie</a></li>
+        </ul>
+    </div>
+
     <div class="movie-container">
         <div id="info">
             <p class="movie-title">{{ title }}</p>

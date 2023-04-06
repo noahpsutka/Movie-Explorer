@@ -45,8 +45,12 @@ with app.app_context():
 
 @app.route("/")
 def index():
-    random_movie = movie_id_list[random.randint(0, 4)]
-    return flask.redirect(flask.url_for("display_movie", id=random_movie))
+    # This will require the user to be logged in to see movie content
+    if flask_login.current_user.is_authenticated:
+        random_movie = movie_id_list[random.randint(0, 4)]
+        return flask.redirect(flask.url_for("display_movie", id=random_movie))
+    else:
+        return flask.redirect(flask.url_for("handle_login"))
 
 
 @app.route("/movie", methods=["POST"])
@@ -66,6 +70,7 @@ def add_review():
 
 @app.route("/movie")
 def display_movie():
+    # information from movie is retrieved from TMDB movie API
     random_movie = request.args["id"]
     movie_title = get_movie_info(random_movie, "title")
     movie_tagline = get_movie_info(random_movie, "tagline")
@@ -79,6 +84,7 @@ def display_movie():
     return flask.render_template(
         "index.html",
         movie_id=random_movie,
+        # Query the database for Reviews that match the provided movie ID
         reviews=Review.query.filter_by(movie_id=random_movie),
         title=movie_title,
         image=movie_image,
@@ -112,6 +118,7 @@ def user_login():
     form_data = flask.request.form
     user_name = form_data["user_name"]
     user_password = form_data["user_password"]
+    # Query the database to see if the username exists, and then check password
     user = User.query.filter_by(username=user_name).first()
     if not user or not check_password_hash(user.password, user_password):
         flask.flash(
@@ -129,6 +136,7 @@ def user_signup():
     form_data = flask.request.form
     user_name = form_data["user_name"]
     user_password = form_data["user_password"]
+    # check if someone else already uses the provided username
     user = User.query.filter_by(username=user_name).first()
     if user:
         flask.flash("Error in Account Creation: Username is taken. Please try again.")

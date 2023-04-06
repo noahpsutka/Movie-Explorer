@@ -8,14 +8,16 @@
 <body>
     <div class="nav-bar">
         <h1 style="text-align: left;">Movie Explorer</h1>
+        {% if current_user.is_authenticated %}
         <ul id="nav-list">
             <li class="nav-item"><a method="GET" href="{{url_for('index')}}">New Movie</a></li>
         </ul>
-        <ul id="nav-list">
-            <li class="nav-item"><a method="GET" href="{{url_for('handle_login')}}">Login</a></li>
-        </ul>
+        {% endif %}
         <ul id="nav-list">
             <li class="nav-item"><a method="GET" href="{{url_for('handle_signup')}}">Create Account</a></li>
+        </ul>
+        <ul id="nav-list">
+            <li class="nav-item"><a method="GET" href="{{url_for('handle_login')}}">Login</a></li>
         </ul>
         {% if current_user.is_authenticated %}
         <ul id="nav-list">

@@ -1,14 +1,38 @@
 import flask
 from flask import request
+from flask_sqlalchemy import SQLAlchemy  # SQL Database
+import flask_login
+from flask_login import LoginManager
+from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 import random
 import os
 from dotenv import load_dotenv, find_dotenv
 
+load_dotenv(find_dotenv())  # load .env for API
 
 app = flask.Flask(__name__)
-load_dotenv(find_dotenv())  # load .env for API
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.secret_key = os.getenv("APP_SECRET_KEY")
+db = SQLAlchemy(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+class User(flask_login.UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(120), unique=True, nullable=False)
+
+
+with app.app_context():
+    db.create_all()
 
 
 @app.route("/")
@@ -39,6 +63,60 @@ def display_movie():
         score=round(movie_score, 1),
         wiki=wiki_link,
     )
+
+
+@app.route("/login", methods=["GET"])
+def handle_login():
+    return flask.render_template("login.html")
+
+
+@app.route("/signup", methods=["GET"])
+def handle_signup():
+    return flask.render_template("signup.html")
+
+
+@app.route("/logout")
+@flask_login.login_required
+def handle_logout():
+    flask_login.logout_user()
+    return flask.redirect(flask.url_for("index"))
+
+
+@app.route("/login", methods=["POST"])
+def user_login():
+    form_data = flask.request.form
+    user_name = form_data["user_name"]
+    user_password = form_data["user_password"]
+    user = User.query.filter_by(username=user_name).first()
+    if not user or not check_password_hash(user.password, user_password):
+        flask.flash(
+            "Login Error: Username or password is invalid. Please try logging in again, or create an account."
+        )
+        return flask.redirect(flask.url_for("user_login"))
+    else:
+        # if valid user, user is now logged in
+        flask_login.login_user(user)
+        return flask.redirect(flask.url_for("index"))
+
+
+@app.route("/signup", methods=["POST"])
+def user_signup():
+    form_data = flask.request.form
+    user_name = form_data["user_name"]
+    user_password = form_data["user_password"]
+    user = User.query.filter_by(username=user_name).first()
+    if user:
+        flask.flash("Error in Account Creation: Username is taken. Please try again.")
+        return flask.redirect(flask.url_for("user_signup"))
+    else:
+        new_user = User(
+            username=user_name,
+            password=generate_password_hash(user_password, method="sha256"),
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        flask.flash("Successfully signed up")
+        return flask.redirect(flask.url_for("user_login"))
 
 
 MOV_API_BASE_URL = "https://api.themoviedb.org/3/"

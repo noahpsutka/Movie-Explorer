@@ -1,6 +1,6 @@
 # project1-noah-psutka
 
-[Visit my site here](https://lingering-dew-8484.fly.dev/)
+[Visit my site here](https://patient-firefly-5431.fly.dev/)
 
 ## _Project Info_
 
@@ -71,11 +71,20 @@ The final step required to have your app running on fly.io is by running the fol
 ```
 flyctl deploy
 ```
+You will want to select 'yes' to setting up a postgres database.
+Include the connection string to the database to your .env file, for your "DATABASE_URL"
 
 After deploying your site, use `flyctl status` to see more details.
+Use "flyctl deploy" again after making local changes to update your deployed site.
+
+To run and test your app locally
+```
+$ flyctl proxy 5432 -a <database app name>
+$ FLASK_APP=app DATABASE_URL=postgresql://postgres:<connection string>@localhost:5432 flask run
+```
 
 
-## _Questions about Project_
+## _Questions about Project Milestone 1_
 What are at least 2 technical issues you encountered with your project? How did you fix them?
 
 ```
@@ -104,4 +113,32 @@ I would have liked to spend more time updating my cascading style sheet.
 
 2: I would also like to add a functionality for users to generate a random movie that matches a user selected genre.
 Having a button to rerun the random movie on the site would be easy, but I would want to allow the user to get a random movie from a genre that they like.
+```
+
+## _Questions about Project Milestone 2_
+
+What are at least 2 technical issues you encountered with your project? How did you fix them?
+
+```
+Issue 1: 
+One issue I encountered was accessing user and movie data in html
+
+Solution - Using Jinja statements in my html I was able to directly access user login authentication.
+For movie data I was able to pass it into my html directly with query parameters.
+
+Issue 2:
+An issue I dealt with was using the same routes for multiple functions, and returning to the same page after executing a function
+
+Solution - I had added a query parameter to my /movie path that contains the movie ID. 
+The movie ID parameter allowed me to refresh the page without generating a new movie for the user on the movie page.
+For using multiple functions on the same page I made a "handler" function that would be able to redirect to the correct page for the user.
+```
+
+How did your experience working on this milestone differ from what you pictured while working through the 
+planning process? What was unexpectedly hard? Was anything unexpectedly easy?
+
+```
+The creation of the database and connection to it was the hardest part for me. 
+Once I had the database setup, using the database was much easier than I expected. 
+Creating new tables and adding to them was very simple, thanks to the documentation available for Flask-Login and SQLAlchemy 
 ```

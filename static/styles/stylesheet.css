@@ -5,9 +5,8 @@ body {
 
 .movie-container {
     display: flex;
+    flex-wrap: wrap;
     padding: 10px;
-
-
     background-color: #121212;
     color: #cccccc;
     text-align: center;
@@ -17,11 +16,28 @@ body {
 #info {
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 65%;
+    width: 60%;
+}
+
+#new-review {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin: 15px;
+    padding: 10px;
+
+}
+
+.reviews {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 15px;
+    padding: 10px;
 }
 
 #image {
-    width: 35%;
+    display: block;
+    width: 30%;
 }
 
 .movie-title {

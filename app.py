@@ -31,6 +31,14 @@ class User(flask_login.UserMixin, db.Model):
     password = db.Column(db.String(120), unique=True, nullable=False)
 
 
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    movie_id = db.Column(db.String(50), unique=False, nullable=False)
+    user_name = db.Column(db.String(50), unique=False, nullable=False)
+    rating = db.Column(db.String(10), unique=False, nullable=False)
+    comment = db.Column(db.String(500), unique=False, nullable=False)
+
+
 with app.app_context():
     db.create_all()
 
@@ -39,6 +47,21 @@ with app.app_context():
 def index():
     random_movie = movie_id_list[random.randint(0, 4)]
     return flask.redirect(flask.url_for("display_movie", id=random_movie))
+
+
+@app.route("/movie", methods=["POST"])
+def add_review():
+    form_data = flask.request.form
+    movie_id = request.args["id"]
+    user_name = request.args["name"]
+    score = form_data["score"]
+    content = form_data["comment"]
+    new_review = Review(
+        movie_id=movie_id, user_name=user_name, rating=score, comment=content
+    )
+    db.session.add(new_review)
+    db.session.commit()
+    return flask.redirect(flask.url_for("display_movie", id=movie_id))
 
 
 @app.route("/movie")
@@ -55,6 +78,8 @@ def display_movie():
     wiki_link = " https://en.wikipedia.org/?curid=" + str(wiki_id)
     return flask.render_template(
         "index.html",
+        movie_id=random_movie,
+        reviews=Review.query.filter_by(movie_id=random_movie),
         title=movie_title,
         image=movie_image,
         tag=movie_tagline,

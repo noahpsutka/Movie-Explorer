@@ -1,7 +1,5 @@
 # project1-noah-psutka
 
-[Visit my site here](https://patient-firefly-5431.fly.dev/)
-
 ## _Project Info_
 
 The following project was created by utilizing the following elements.
@@ -21,7 +19,7 @@ MediaWiki is used in this project to generate a wikipedia link correlated to the
 ### Step 1: Clone this repo
 
 ```
-git clone git@github.com:noahpsutka/project1-noah-psutka.git
+git clone git@github.com:noahpsutka/Movie-Explorer.git
 ```
 
 ### Step 2: Download required libraries
@@ -84,8 +82,7 @@ $ FLASK_APP=app DATABASE_URL=postgresql://postgres:<connection string>@localhost
 ```
 
 
-## _Questions about Project Milestone 1_
-What are at least 2 technical issues you encountered with your project? How did you fix them?
+## _Technical Issues Encountered with Solutions_
 
 ```
 Issue 1: 
@@ -94,7 +91,6 @@ configured. See https://fly.io/docs/reference/configuration/#the-build-section"
 
 Solution - I had to run the command "fly auth login" before running "flyctl launch" in order to properly
 generate Procfile and fly.toml
-I was able to find this solution by reaching out to my peers who encountered similar problems.
 
 Issue 2:
 "Failed due to unhealthy allocations - no stable job version to auto revert to"
@@ -103,42 +99,17 @@ Solution - I had to update my requirements.txt to include all of the libraries t
 I was able to find this solution by reading the console log, the following line on 
 my console told me which library I forgot to add to my requirements.txt
 - [info]ModuleNotFoundError: No module named 'dotenv'
-```
 
-What are at least 2 known problems (still existing), if any, with your project? (If none, what are two things you would improve about your project if given more time?)
+Issue 3: 
+One issue I encountered was accessing user and movie data in HTML
 
-```
-1: If I had more time to work on this project I would like to add a more visually appealing frontend layout.
-I would have liked to spend more time updating my cascading style sheet.
+Solution - Using Jinja statements in my HTML I was able to directly access user login authentication.
+For movie data I was able to pass it into my HTML directly with query parameters.
 
-2: I would also like to add a functionality for users to generate a random movie that matches a user selected genre.
-Having a button to rerun the random movie on the site would be easy, but I would want to allow the user to get a random movie from a genre that they like.
-```
-
-## _Questions about Project Milestone 2_
-
-What are at least 2 technical issues you encountered with your project? How did you fix them?
-
-```
-Issue 1: 
-One issue I encountered was accessing user and movie data in html
-
-Solution - Using Jinja statements in my html I was able to directly access user login authentication.
-For movie data I was able to pass it into my html directly with query parameters.
-
-Issue 2:
+Issue 4:
 An issue I dealt with was using the same routes for multiple functions, and returning to the same page after executing a function
 
 Solution - I had added a query parameter to my /movie path that contains the movie ID. 
 The movie ID parameter allowed me to refresh the page without generating a new movie for the user on the movie page.
 For using multiple functions on the same page I made a "handler" function that would be able to redirect to the correct page for the user.
-```
-
-How did your experience working on this milestone differ from what you pictured while working through the 
-planning process? What was unexpectedly hard? Was anything unexpectedly easy?
-
-```
-The creation of the database and connection to it was the hardest part for me. 
-Once I had the database setup, using the database was much easier than I expected. 
-Creating new tables and adding to them was very simple, thanks to the documentation available for Flask-Login and SQLAlchemy 
 ```

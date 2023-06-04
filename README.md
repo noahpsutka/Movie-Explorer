@@ -1,4 +1,4 @@
-# project1-noah-psutka
+# Movie Explorer
 
 ## _Project Info_
 

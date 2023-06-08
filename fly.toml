@@ -1,6 +1,6 @@
 # fly.toml file generated for patient-firefly-5431 on 2023-04-05T20:28:25-05:00
 
-app = "patient-firefly-5431"
+app = ""
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "dfw"
